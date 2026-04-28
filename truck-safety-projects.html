@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>خطة مشروع جهاز توزيع الحمولة الذكي</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0e17;
+  --bg2: #111827;
+  --bg3: #1a2332;
+  --surface: #1e2d3d;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #e8edf5;
+  --muted: #6b7a8d;
+  --muted2: #8a97a8;
+  --green: #22c55e;
+  --green-dim: rgba(34,197,94,0.12);
+  --green-border: rgba(34,197,94,0.25);
+  --amber: #f59e0b;
+  --amber-dim: rgba(245,158,11,0.1);
+  --blue: #3b82f6;
+  --blue-dim: rgba(59,130,246,0.1);
+  --red: #ef4444;
+  --red-dim: rgba(239,68,68,0.1);
+  --accent: #22c55e;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Cairo',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  font-size:15px;
+  line-height:1.75;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg2);}
+::-webkit-scrollbar-thumb{background:var(--surface);border-radius:4px;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;inset-inline:0;z-index:200;
+  background:rgba(10,14,23,0.88);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  height:56px;padding:0 5vw;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-brand{
+  font-weight:700;font-size:14px;
+  display:flex;align-items:center;gap:10px;
+  color:var(--text);
+}
+.nav-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 8px var(--green);
+  animation:pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.4}}
+.nav-links{display:flex;gap:24px;}
+.nav-links a{
+  font-size:12px;color:var(--muted);
+  text-decoration:none;transition:color .2s;
+  font-weight:500;
+}
+.nav-links a:hover{color:var(--text);}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:100px 5vw 80px;
+  position:relative;overflow:hidden;
+  background:var(--bg);
+}
+.hero-bg-grid{
+  position:absolute;inset:0;opacity:.04;
+  background-image:
+    linear-gradient(rgba(255,255,255,.4) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.4) 1px,transparent 1px);
+  background-size:40px 40px;
+  pointer-events:none;
+}
+.hero-bg-glow{
+  position:absolute;top:-200px;right:-100px;
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(34,197,94,.07) 0%,transparent 70%);
+  pointer-events:none;
+}
+.status-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--green);
+  background:var(--green-dim);
+  border:1px solid var(--green-border);
+  padding:6px 14px;border-radius:40px;
+  margin-bottom:32px;
+}
+.hero h1{
+  font-size:clamp(2rem,5vw,3.6rem);
+  font-weight:900;line-height:1.1;
+  max-width:760px;margin-bottom:20px;
+}
+.hero h1 .hl{color:var(--green);}
+.hero-sub{
+  font-size:16px;color:var(--muted2);
+  max-width:540px;margin-bottom:48px;
+}
+.hero-kpis{
+  display:flex;flex-wrap:wrap;gap:32px;
+}
+.kpi{display:flex;flex-direction:column;gap:4px;}
+.kpi-n{
+  font-size:2.2rem;font-weight:900;
+  font-family:'IBM Plex Mono',monospace;
+  color:var(--green);line-height:1;
+}
+.kpi-l{font-size:11px;color:var(--muted);font-weight:500;}
+
+/* ── PAGE SECTIONS ── */
+.section{padding:80px 5vw;}
+.section-alt{background:var(--bg2);}
+
+/* ── SECTION HEADER ── */
+.sec-header{
+  display:flex;align-items:flex-start;gap:18px;
+  margin-bottom:40px;
+}
+.sec-num{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;color:var(--green);
+  font-weight:500;letter-spacing:.1em;
+  padding-top:4px;min-width:36px;
+}
+.sec-title{
+  font-size:clamp(1.3rem,3vw,1.8rem);
+  font-weight:800;line-height:1.2;
+}
+.sec-sub{font-size:13px;color:var(--muted);margin-top:6px;}
+
+/* ── CARDS ── */
+.card{
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:24px;
+  transition:border-color .2s;
+}
+.card:hover{border-color:var(--border2);}
+
+/* ── PHASE TIMELINE ── */
+.phases{display:flex;flex-direction:column;gap:0;}
+.phase-row{
+  display:grid;
+  grid-template-columns:80px 1px 1fr;
+  gap:0 24px;
+  position:relative;
+}
+.phase-week{
+  text-align:left;
+  padding:20px 0;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;color:var(--green);font-weight:500;
+  line-height:1.4;
+}
+.phase-line{
+  width:1px;
+  background:var(--border2);
+  position:relative;
+  margin:0 auto;
+}
+.phase-dot-outer{
+  position:absolute;top:24px;left:50%;transform:translateX(-50%);
+  width:12px;height:12px;border-radius:50%;
+  border:2px solid var(--green);
+  background:var(--bg);
+}
+.phase-dot-outer.done{background:var(--green);}
+.phase-content{
+  padding:20px 0 28px;
+}
+.phase-title{
+  font-size:15px;font-weight:700;margin-bottom:8px;
+}
+.phase-items{
+  list-style:none;display:flex;flex-direction:column;gap:5px;
+}
+.phase-items li{
+  font-size:13px;color:var(--muted2);
+  display:flex;align-items:flex-start;gap:8px;
+}
+.phase-items li::before{
+  content:'→';color:var(--green);flex-shrink:0;margin-top:1px;
+}
+
+/* ── BOM TABLE ── */
+.bom-table{width:100%;border-collapse:collapse;}
+.bom-table thead tr{
+  background:var(--surface);
+  border-bottom:1px solid var(--border2);
+}
+.bom-table th{
+  padding:12px 16px;
+  font-size:11px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);
+  text-align:right;
+}
+.bom-table td{
+  padding:14px 16px;
+  font-size:13px;
+  border-bottom:1px solid var(--border);
+  vertical-align:top;
+}
+.bom-table tr:hover td{background:rgba(255,255,255,.02);}
+.bom-table .total-row td{
+  background:var(--surface);
+  font-weight:700;font-size:14px;
+  border-top:2px solid var(--border2);
+}
+.comp-name{font-weight:600;color:var(--text);}
+.comp-model{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;color:var(--green);
+  display:block;margin-top:3px;
+}
+.price-tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:13px;font-weight:600;
+}
+.source-link{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:11px;font-weight:600;
+  padding:4px 10px;border-radius:6px;
+  text-decoration:none;
+  border:1px solid var(--border2);
+  color:var(--muted2);
+  transition:all .2s;
+  white-space:nowrap;
+}
+.source-link:hover{color:var(--text);border-color:var(--green);color:var(--green);}
+.source-link.ali{border-color:rgba(245,158,11,.3);color:var(--amber);}
+.source-link.ali:hover{border-color:var(--amber);}
+.source-link.lcl{border-color:rgba(59,130,246,.3);color:var(--blue);}
+.source-link.lcl:hover{border-color:var(--blue);}
+.cat-badge{
+  display:inline-block;
+  font-size:10px;font-weight:600;
+  padding:2px 8px;border-radius:4px;
+  margin-bottom:4px;
+}
+.cat-elec{background:rgba(59,130,246,.15);color:#60a5fa;}
+.cat-mech{background:rgba(245,158,11,.15);color:#fbbf24;}
+.cat-soft{background:rgba(34,197,94,.15);color:#4ade80;}
+.cat-tool{background:rgba(239,68,68,.15);color:#f87171;}
+.qty-badge{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;font-weight:600;
+  color:var(--muted2);
+}
+
+/* ── ARCH DIAGRAM ── */
+.arch-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:16px;
+}
+@media(max-width:720px){.arch-grid{grid-template-columns:1fr;}}
+.arch-layer{
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:20px;
+}
+.arch-layer-label{
+  font-size:10px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;margin-bottom:14px;
+}
+.arch-chip{
+  background:var(--surface);
+  border:1px solid var(--border2);
+  border-radius:8px;
+  padding:10px 14px;
+  margin-bottom:8px;
+  font-size:12px;
+}
+.arch-chip-name{font-weight:600;margin-bottom:2px;}
+.arch-chip-detail{font-size:11px;color:var(--muted);font-family:'IBM Plex Mono',monospace;}
+
+/* ── RISK TABLE ── */
+.risk-grid{display:flex;flex-direction:column;gap:10px;}
+.risk-row{
+  display:grid;grid-template-columns:1fr 80px 80px 1fr;
+  gap:16px;align-items:center;
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:14px 18px;
+}
+.risk-name{font-size:13px;font-weight:600;}
+.risk-level{
+  font-size:11px;font-weight:700;
+  padding:3px 10px;border-radius:20px;
+  text-align:center;
+}
+.lvl-high{background:var(--red-dim);color:#f87171;}
+.lvl-med{background:var(--amber-dim);color:#fbbf24;}
+.lvl-low{background:var(--green-dim);color:#4ade80;}
+.risk-mitigation{font-size:12px;color:var(--muted2);}
+@media(max-width:640px){.risk-row{grid-template-columns:1fr 1fr;}}
+
+/* ── MARKET ── */
+.market-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:600px){.market-grid{grid-template-columns:1fr;}}
+.market-card{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:12px;padding:22px;
+}
+.market-icon{font-size:24px;margin-bottom:12px;}
+.market-name{font-size:14px;font-weight:700;margin-bottom:6px;}
+.market-desc{font-size:12px;color:var(--muted2);}
+.market-val{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:18px;font-weight:700;color:var(--green);
+  margin-top:10px;
+}
+
+/* ── COST BREAKDOWN ── */
+.cost-bar-wrap{display:flex;flex-direction:column;gap:10px;margin-bottom:32px;}
+.cost-item{display:flex;align-items:center;gap:14px;}
+.cost-label{font-size:12px;font-weight:600;min-width:160px;color:var(--muted2);}
+.cost-bar-bg{flex:1;height:8px;background:var(--surface);border-radius:4px;overflow:hidden;}
+.cost-bar-fill{height:100%;border-radius:4px;transition:width .6s ease;}
+.cost-amount{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;font-weight:600;min-width:80px;text-align:left;
+}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--bg);
+  border-top:1px solid var(--border);
+  padding:40px 5vw;
+  text-align:center;
+  font-size:12px;color:var(--muted);
+}
+
+/* ── ANIMATIONS ── */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;}
+.reveal.in{opacity:1;transform:none;}
+
+/* ── PRINT BUTTON ── */
+.print-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;font-weight:600;
+  padding:8px 18px;border-radius:8px;
+  background:var(--green-dim);
+  border:1px solid var(--green-border);
+  color:var(--green);cursor:pointer;
+  font-family:'Cairo',sans-serif;
+  transition:all .2s;
+}
+.print-btn:hover{background:rgba(34,197,94,.2);}
+
+/* ── TOTAL BOX ── */
+.total-box{
+  background:linear-gradient(135deg,rgba(34,197,94,.08),rgba(34,197,94,.02));
+  border:1px solid var(--green-border);
+  border-radius:14px;padding:28px 32px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:16px;
+  margin-top:24px;
+}
+.total-label{font-size:13px;color:var(--muted2);margin-bottom:4px;}
+.total-val{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:2rem;font-weight:700;color:var(--green);
+}
+.total-note{font-size:11px;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <span class="nav-dot"></span>
+    جهاز توزيع الحمولة الذكي
+  </div>
+  <div class="nav-links">
+    <a href="#overview">نظرة عامة</a>
+    <a href="#arch">المعمارية</a>
+    <a href="#bom">المكونات</a>
+    <a href="#timeline">الخطة</a>
+    <a href="#market">السوق</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="overview">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-bg-glow"></div>
+  <div class="status-badge">
+    <span>●</span> مشروع محدد — جاهز للتنفيذ
+  </div>
+  <h1>جهاز قياس<br>وتحسين توزيع<br><span class="hl">حمولة الشاحنات</span></h1>
+  <p class="hero-sub">منصة وزن ذكية مدمجة مع ذكاء اصطناعي تُعطي العامل توجيهات لحظية لتوزيع البضاعة بشكل مثالي — مع لوحة تحكم للشركة.</p>
+  <div class="hero-kpis">
+    <div class="kpi"><span class="kpi-n">8</span><span class="kpi-l">أسابيع للإنجاز</span></div>
+    <div class="kpi"><span class="kpi-n">23%</span><span class="kpi-l">توفير وقود محقق</span></div>
+    <div class="kpi"><span class="kpi-n">±50kg</span><span class="kpi-l">دقة القياس</span></div>
+    <div class="kpi"><span class="kpi-n">6</span><span class="kpi-l">خلايا حمل في الجهاز</span></div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section class="section section-alt" id="arch">
+  <div class="sec-header reveal">
+    <span class="sec-num">01 —</span>
+    <div>
+      <div class="sec-title">المعمارية التقنية</div>
+      <div class="sec-sub">طبقات النظام من الحساسات حتى لوحة التحكم</div>
+    </div>
+  </div>
+
+  <div class="arch-grid reveal">
+    <!-- Layer 1: Sensing -->
+    <div class="arch-layer">
+      <div class="arch-layer-label" style="color:var(--amber);">طبقة الاستشعار</div>
+      <div class="arch-chip">
+        <div class="arch-chip-name">6× Load Cell 200kg</div>
+        <div class="arch-chip-detail">موزعة على أرضية الصندوق</div>
+      </div>
+      <div class="arch-chip">
+        <div class="arch-chip-name">6× HX711 ADC</div>
+        <div class="arch-chip-detail">24-bit precision amplifier</div>
+      </div>
+      <div class="arch-chip">
+        <div class="arch-chip-name">IMU MPU-6050</div>
+        <div class="arch-chip-detail">ميل + اهتزاز الشاحنة</div>
+      </div>
+      <div class="arch-chip">
+        <div class="arch-chip-name">DS18B20 Temp</div>
+        <div class="arch-chip-detail">تعويض درجة الحرارة</div>
+      </div>
+    </div>
+
+    <!-- Layer 2: Processing -->
+    <div class="arch-layer">
+      <div class="arch-layer-label" style="color:var(--blue);">طبقة المعالجة</div>
+      <div class="arch-chip">
+        <div class="arch-chip-name">ESP32-S3 (Main MCU)</div>
+        <div class="arch-chip-detail">240MHz dual-core + WiFi/BLE</div>
+      </div>
+      <div class="arch-chip">
+        <div class="arch-chip-name">نموذج AI (TFLite)</div>
+        <div class="arch-chip-detail">توصيات تحميل تكيفية</div>
+      </div>
+      <div class="arch-chip">
+        <div class="arch-chip-name">PCB مخصص 4 طبقات</div>
+        <div class="arch-chip-detail">تصنيع JLCPCB</div>
+      </div>
+      <div class="arch-chip">
+        <div class="arch-chip-name">SD Card 32GB</div>
+        <div class="arch-chip-detail">تسجيل بيانات محلي</div>
+      </div>
+    </div>
+
+    <!-- Layer 3: Output -->
+    <div class="arch-layer">
+      <div class="arch-layer-label" style="color:var(--green);">طبقة الإخراج</div>
+      <div class="arch-chip">
+        <div class="arch-chip-name">شاشة TFT 3.5″ IPS</div>
+        <div class="arch-chip-detail">خريطة وزن لونية لحظية</div>
+      </div>
+      <div class="arch-chip">
+        <div class="arch-chip-name">Buzzer + RGB LED</div>
+        <div class="arch-chip-detail">تنبيه صوتي وضوئي</div>
+      </div>
+      <div class="arch-chip">
+        <div class="arch-chip-name">APEC / MQTT</div>
+        <div class="arch-chip-detail">إرسال لوحة تحكم الشركة</div>
+      </div>
+      <div class="arch-chip">
+        <div class="arch-chip-name">لوحة ويب Dashboard</div>
+        <div class="arch-chip-detail">React + Node.js</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Flow diagram SVG -->
+  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-top:20px;" class="reveal">
+    <svg width="100%" viewBox="0 0 900 160" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+          <path d="M2 2L8 5L2 8" fill="none" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+      </defs>
+      <rect width="900" height="160" fill="#1a2332"/>
+      <!-- boxes -->
+      <rect x="20"  y="50" width="110" height="60" rx="8" fill="#0f1c2e" stroke="#22c55e" stroke-width="1" opacity=".7"/>
+      <text font-family="Cairo" font-size="11" font-weight="700" fill="#22c55e" x="75"  y="76" text-anchor="middle">6× Load Cell</text>
+      <text font-family="Cairo" font-size="10" fill="#6b7a8d" x="75"  y="94" text-anchor="middle">200kg each</text>
+
+      <rect x="165" y="50" width="110" height="60" rx="8" fill="#0f1c2e" stroke="#3b82f6" stroke-width="1" opacity=".7"/>
+      <text font-family="Cairo" font-size="11" font-weight="700" fill="#3b82f6" x="220" y="76" text-anchor="middle">6× HX711</text>
+      <text font-family="Cairo" font-size="10" fill="#6b7a8d" x="220" y="94" text-anchor="middle">24-bit ADC</text>
+
+      <rect x="310" y="50" width="130" height="60" rx="8" fill="#0f1c2e" stroke="#3b82f6" stroke-width="1" opacity=".7"/>
+      <text font-family="Cairo" font-size="11" font-weight="700" fill="#3b82f6" x="375" y="76" text-anchor="middle">ESP32-S3</text>
+      <text font-family="Cairo" font-size="10" fill="#6b7a8d" x="375" y="94" text-anchor="middle">MCU + AI Model</text>
+
+      <rect x="475" y="50" width="120" height="60" rx="8" fill="#0f1c2e" stroke="#f59e0b" stroke-width="1" opacity=".7"/>
+      <text font-family="Cairo" font-size="11" font-weight="700" fill="#f59e0b" x="535" y="76" text-anchor="middle">شاشة TFT</text>
+      <text font-family="Cairo" font-size="10" fill="#6b7a8d" x="535" y="94" text-anchor="middle">خريطة لونية</text>
+
+      <rect x="630" y="50" width="120" height="60" rx="8" fill="#0f1c2e" stroke="#22c55e" stroke-width="1" opacity=".7"/>
+      <text font-family="Cairo" font-size="11" font-weight="700" fill="#22c55e" x="690" y="76" text-anchor="middle">WiFi / APEC</text>
+      <text font-family="Cairo" font-size="10" fill="#6b7a8d" x="690" y="94" text-anchor="middle">Cloud Dashboard</text>
+
+      <rect x="785" y="50" width="95" height="60" rx="8" fill="#0f1c2e" stroke="#22c55e" stroke-width="1" opacity=".7"/>
+      <text font-family="Cairo" font-size="11" font-weight="700" fill="#22c55e" x="832" y="76" text-anchor="middle">لوحة ويب</text>
+      <text font-family="Cairo" font-size="10" fill="#6b7a8d" x="832" y="94" text-anchor="middle">Fleet Manager</text>
+
+      <!-- arrows -->
+      <line x1="131" y1="80" x2="163" y2="80" stroke="#22c55e" stroke-width="1.5" marker-end="url(#a)"/>
+      <line x1="276" y1="80" x2="308" y2="80" stroke="#22c55e" stroke-width="1.5" marker-end="url(#a)"/>
+      <line x1="441" y1="80" x2="473" y2="80" stroke="#22c55e" stroke-width="1.5" marker-end="url(#a)"/>
+      <line x1="596" y1="80" x2="628" y2="80" stroke="#22c55e" stroke-width="1.5" marker-end="url(#a)"/>
+      <line x1="751" y1="80" x2="783" y2="80" stroke="#22c55e" stroke-width="1.5" marker-end="url(#a)"/>
+
+      <!-- labels -->
+      <text font-family="Cairo" font-size="9" fill="#374151" x="75"  y="140" text-anchor="middle">مدخلات</text>
+      <text font-family="Cairo" font-size="9" fill="#374151" x="220" y="140" text-anchor="middle">تضخيم</text>
+      <text font-family="Cairo" font-size="9" fill="#374151" x="375" y="140" text-anchor="middle">معالجة + AI</text>
+      <text font-family="Cairo" font-size="9" fill="#374151" x="535" y="140" text-anchor="middle">عرض</text>
+      <text font-family="Cairo" font-size="9" fill="#374151" x="690" y="140" text-anchor="middle">إرسال</text>
+      <text font-family="Cairo" font-size="9" fill="#374151" x="832" y="140" text-anchor="middle">مراقبة</text>
+    </svg>
+  </div>
+</section>
+
+<!-- BOM TABLE -->
+<section class="section" id="bom">
+  <div class="sec-header reveal">
+    <span class="sec-num">02 —</span>
+    <div>
+      <div class="sec-title">قائمة المكونات الكاملة</div>
+      <div class="sec-sub">BOM مع الأسعار ومصادر الطلب لكل قطعة</div>
+    </div>
+  </div>
+
+  <div style="overflow-x:auto;" class="reveal">
+  <table class="bom-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>المكون</th>
+        <th>الكمية</th>
+        <th>السعر التقريبي</th>
+        <th>المصدر الأول</th>
+        <th>بديل محلي</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- ELECTRONICS -->
+      <tr>
+        <td style="color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:11px;">E01</td>
+        <td>
+          <span class="cat-badge cat-elec">إلكترونيات</span><br>
+          <span class="comp-name">Load Cell 200kg (Half Bridge)</span>
+          <span class="comp-model">YZC-131 / TAL220</span>
+        </td>
+        <td><span class="qty-badge">× 6</span></td>
+        <td><span class="price-tag" style="color:var(--green);">~60 ر.س</span><br><span style="font-size:11px;color:var(--muted);">الكل ~360 ر.س</span></td>
+        <td><a class="source-link ali" href="https://www.aliexpress.com/w/wholesale-load-cell-200kg.html" target="_blank">🛒 AliExpress</a></td>
+        <td><a class="source-link lcl" href="https://www.souq.com" target="_blank">📦 Souq / امازون</a></td>
+      </tr>
+      <tr>
+        <td style="color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:11px;">E02</td>
+        <td>
+          <span class="cat-badge cat-elec">إلكترونيات</span><br>
+          <span class="comp-name">HX711 Load Cell Amplifier</span>
+          <span class="comp-model">24-bit ADC Module</span>
+        </td>
+        <td><span class="qty-badge">× 6</span></td>
+        <td><span class="price-tag" style="color:var(--green);">~8 ر.س</span><br><span style="font-size:11px;color:var(--muted);">الكل ~48 ر.س</span></td>
+        <td><a class="source-link ali" href="https://www.aliexpress.com/w/wholesale-hx711-module.html" target="_blank">🛒 AliExpress</a></td>
+        <td><a class="source-link lcl" href="https://makerselectronics.com" target="_blank">⚡ Makers Electronics</a></td>
+      </tr>
+      <tr>
+        <td style="color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:11px;">E03</td>
+        <td>
+          <span class="cat-badge cat-elec">إلكترونيات</span><br>
+          <span class="comp-name">ESP32-S3 Development Board</span>
+          <span class="comp-model">ESP32-S3-WROOM-1 N16R8</span>
+        </td>
+        <td><span class="qty-badge">× 1</span></td>
+        <td><span class="price-tag" style="color:var(--green);">~75 ر.س</span></td>
+        <td><a class="source-link ali" href="https://www.aliexpress.com/w/wholesale-esp32-s3-development.html" target="_blank">🛒 AliExpress</a></td>
+        <td><a class="source-link lcl" href="https://makerselectronics.com" target="_blank">⚡ Makers Electronics</a></td>
+      </tr>
+      <tr>
+        <td style="color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:11px;">E04</td>
+        <td>
+          <span class="cat-badge cat-elec">إلكترونيات</span><br>
+          <span class="comp-name">TFT LCD 3.5 inch IPS Display</span>
+          <span class="comp-model">ILI9488 SPI 480×320</span>
+        </td>
+        <td><span class="qty-badge">× 1</span></td>
+        <td><span class="price-tag" style="color:var(--green);">~85 ر.س</span></td>
+        <td><a class="source-link ali" href="https://www.aliexpress.com/w/wholesale-3.5-inch-tft-lcd.html" target="_blank">🛒 AliExpress</a></td>
+        <td><a class="source-link lcl" href="https://makerselectronics.com" target="_blank">⚡ Makers Electronics</a></td>
+      </tr>
+      <tr>
+        <td style="color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:11px;">E05</td>
+        <td>
+          <span class="cat-badge cat-elec">إلكترونيات</span><br>
+          <span class="comp-name">MPU-6050 IMU Module</span>
+          <span class="comp-model">6-axis Gyro + Accel I2C</span>
+        </td>
+        <td><span class="qty-badge">× 1</span></td>
+        <td><span class="price-tag" style="color:var(--green);">~12 ر.س</span></td>
+        <td><a class="source-link ali" href="https://www.aliexpress.com/w/wholesale-mpu6050.html" target="_blank">🛒 AliExpress</a></td>
+        <td><a class="source-link lcl" href="https://makerselectronics.com" target="_blank">⚡ Makers Electronics</a></td>
+      </tr>
+      <tr>
+        <td style="color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:11px;">E06</td>
+        <td>
+          <span class="cat-badge cat-elec">إلكترونيات</span><br>
+          <span class="comp-name">PCB مخصص 4 طبقات</span>
+          <span class="comp-model">JLCPCB — 100×80mm</span>
+        </td>
+        <td><span class="qty-badge">× 5</span></td>
+        <td><span class="price-tag" style="color:var(--green);">~120 ر.س</span><br><span style="font-size:11px;color:var(--muted);">لـ 5 قطع</span></td>
+        <td><a class="source-link ali" href="https://jlcpcb.com" target="_blank">🏭 JLCPCB</a></td>
+        <td><a class="source-link ali" href="https://pcbway.com" target="_blank">🏭 PCBWay</a></td>
+      </tr>
+      <tr>
+        <td style="color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:11px;">E07</td>
+        <td>
+          <span class="cat-badge cat-elec">إلكترونيات</span><br>
+          <span class="comp-name">DS18B20 درجة حرارة</span>
+          <span class="comp-model">1-Wire Waterproof Probe</span>
+        </td>
+        <td><span class="qty-badge">× 2</span></td>
+        <td><span class="price-tag" style="color:var(--green);">~15 ر.س</span></td>
+        <td><a class="source-link ali" href="https://www.aliexpress.com/w/wholesale-ds18b20-probe.html" target="_blank">🛒 AliExpress</a></td>
+        <td><a class="source-link lcl" href="https://makerselectronics.com" target="_blank">⚡ Makers Electronics</a></td>
+      </tr>
+      <tr>
+        <td style="color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:11px;">E08</td>
+        <td>
+          <span class="cat-badge cat-elec">إلكترونيات</span><br>
+          <span class="comp-name">مكونات SMD متنوعة</span>
+          <span class="comp-model">مقاومات، مكثفات، LEDs، موصلات</span>
+        </td>
+        <td><span class="qty-badge">× Kit</span></td>
+        <td><span class="price-tag" style="color:var(--green);">~150 ر.س</span></td>
+        <td><a class="source-link ali" href="https://www.aliexpress.com/w/wholesale-smd-resistor-kit.html" target="_blank">🛒 AliExpress</a></td>
+        <td><a class="source-link lcl" href="https://makerselectronics.com" target="_blank">⚡ Makers Electronics</a></td>
+      </tr>
+      <tr>
+        <td style="color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:11px;">E09</td>
+        <td>
+          <span class="cat-badge cat-elec">إلكترونيات</span><br>
+          <span class="comp-name">بطارية LiPo 3.7V 5000mAh</span>
+          <span class="comp-model">+ شاحن BMS مدمج</span>
+        </td>
+        <td><span class="qty-badge">× 1</span></td>
+        <td><span class="price-tag" style="color:var(--green);">~95 ر.س</span></td>
+        <td><a class="source-link ali" href="https://www.aliexpress.com/w/wholesale-lipo-5000mah.html" target="_blank">🛒 AliExpress</a></td>
+        <td><a class="source-link lcl" href="https://makerselectronics.com" target="_blank">⚡ Makers Electronics</a></td>
+      </tr>
+      <tr>
+        <td style="color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:11px;">E10</td>
+        <td>
+          <span class="cat-badge cat-elec">إلكترونيات</span><br>
+          <span class="comp-name">SD Card Module + بطاقة 32GB</span>
+          <span class="comp-model">SPI Interface</span>
+        </td>
+        <td><span class="qty-badge">× 1</span></td>
+        <td><span class="price-tag" style="color:var(--green);">~35 ر.س</span></td>
+        <td><a class="source-link ali" href="https://www.aliexpress.com/w/wholesale-sd-card-module.html" target="_blank">🛒 AliExpress</a></td>
+        <td><a class="source-link lcl" href="https://makerselectronics.com" target="_blank">⚡ Makers Electronics</a></td>
+      </tr>
+
+      <!-- MECHANICAL -->
+      <tr>
+        <td style="color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:11px;">M01</td>
+        <td>
+          <span class="cat-badge cat-mech">ميكانيكي</span><br>
+          <span class="comp-name">بكرات طباعة 3D — PETG</span>
+          <span class="comp-model">هيكل الجهاز + حامل الشاشة</span>
+        </td>
+        <td><span class="qty-badge">× 2kg</span></td>
+        <td><span class="price-tag" style="color:var(--amber);">~120 ر.س</span></td>
+        <td><a class="source-link ali" href="https://www.aliexpress.com/w/wholesale-petg-filament-1kg.html" target="_blank">🛒 AliExpress</a></td>
+        <td><a class="source-link lcl" href="https://robotics.sa" target="_blank">🤖 Robotics.sa</a></td>
+      </tr>
+      <tr>
+        <td style="color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:11px;">M02</td>
+        <td>
+          <span class="cat-badge cat-mech">ميكانيكي</span><br>
+          <span class="comp-name">صفائح ألمنيوم 3mm</span>
+          <span class="comp-model">قاعدة تثبيت خلايا الحمل</span>
+        </td>
+        <td><span class="qty-badge">× 2 قطعة</span></td>
+        <td><span class="price-tag" style="color:var(--amber);">~80 ر.س</span></td>
+        <td><a class="source-link lcl" href="#" target="_blank">🏪 محلات الألمنيوم</a></td>
+        <td><a class="source-link lcl" href="#" target="_blank">🏗️ محلات الحديد المحلية</a></td>
+      </tr>
+      <tr>
+        <td style="color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:11px;">M03</td>
+        <td>
+          <span class="cat-badge cat-mech">ميكانيكي</span><br>
+          <span class="comp-name">براغي ومسامير ستانلس</span>
+          <span class="comp-model">M3, M4, M6 كامل الأحجام</span>
+        </td>
+        <td><span class="qty-badge">× Kit</span></td>
+        <td><span class="price-tag" style="color:var(--amber);">~40 ر.س</span></td>
+        <td><a class="source-link ali" href="https://www.aliexpress.com/w/wholesale-m3-m4-screw-kit.html" target="_blank">🛒 AliExpress</a></td>
+        <td><a class="source-link lcl" href="#" target="_blank">🔩 محلات قطع الغيار</a></td>
+      </tr>
+      <tr>
+        <td style="color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:11px;">M04</td>
+        <td>
+          <span class="cat-badge cat-mech">ميكانيكي</span><br>
+          <span class="comp-name">كابلات مرنة مقاومة للبيئة</span>
+          <span class="comp-model">AWG22 Shielded — 10m</span>
+        </td>
+        <td><span class="qty-badge">× 20m</span></td>
+        <td><span class="price-tag" style="color:var(--amber);">~60 ر.س</span></td>
+        <td><a class="source-link ali" href="https://www.aliexpress.com/w/wholesale-shielded-cable-awg22.html" target="_blank">🛒 AliExpress</a></td>
+        <td><a class="source-link lcl" href="#" target="_blank">🔌 محلات الكهرباء</a></td>
+      </tr>
+
+      <!-- TOOLS -->
+      <tr>
+        <td style="color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:11px;">T01</td>
+        <td>
+          <span class="cat-badge cat-tool">أدوات (مرة واحدة)</span><br>
+          <span class="comp-name">لحام إلكتروني SMD + Flux</span>
+          <span class="comp-model">Solder Paste Sn63/Pb37</span>
+        </td>
+        <td><span class="qty-badge">× Kit</span></td>
+        <td><span class="price-tag" style="color:var(--red);">~90 ر.س</span></td>
+        <td><a class="source-link ali" href="https://www.aliexpress.com/w/wholesale-solder-paste-flux.html" target="_blank">🛒 AliExpress</a></td>
+        <td><a class="source-link lcl" href="https://makerselectronics.com" target="_blank">⚡ Makers Electronics</a></td>
+      </tr>
+      <tr>
+        <td style="color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:11px;">T02</td>
+        <td>
+          <span class="cat-badge cat-tool">أدوات (مرة واحدة)</span><br>
+          <span class="comp-name">معايرة أوزان مرجعية</span>
+          <span class="comp-model">50kg × 4 للمعايرة الدقيقة</span>
+        </td>
+        <td><span class="qty-badge">× 4</span></td>
+        <td><span class="price-tag" style="color:var(--red);">~200 ر.س</span><br><span style="font-size:11px;color:var(--muted);">أو استعارة من مختبر</span></td>
+        <td><a class="source-link lcl" href="#" target="_blank">🏋️ محلات رياضة</a></td>
+        <td><a class="source-link lcl" href="#" target="_blank">🏗️ موازين صناعية</a></td>
+      </tr>
+
+      <!-- SOFTWARE -->
+      <tr>
+        <td style="color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:11px;">S01</td>
+        <td>
+          <span class="cat-badge cat-soft">برمجيات</span><br>
+          <span class="comp-name">Fusion 360 (تصميم 3D)</span>
+          <span class="comp-model">ترخيص Hobbyist — مجاني</span>
+        </td>
+        <td><span class="qty-badge">× 1</span></td>
+        <td><span class="price-tag" style="color:var(--green);">مجاني</span></td>
+        <td><a class="source-link" href="https://www.autodesk.com/products/fusion-360" target="_blank">⬇️ autodesk.com</a></td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td style="color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:11px;">S02</td>
+        <td>
+          <span class="cat-badge cat-soft">برمجيات</span><br>
+          <span class="comp-name">KiCad EDA (تصميم PCB)</span>
+          <span class="comp-model">مفتوح المصدر</span>
+        </td>
+        <td><span class="qty-badge">× 1</span></td>
+        <td><span class="price-tag" style="color:var(--green);">مجاني</span></td>
+        <td><a class="source-link" href="https://www.kicad.org" target="_blank">⬇️ kicad.org</a></td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td style="color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:11px;">S03</td>
+        <td>
+          <span class="cat-badge cat-soft">برمجيات</span><br>
+          <span class="comp-name">TensorFlow Lite + Edge Impulse</span>
+          <span class="comp-model">تدريب ونشر نموذج AI</span>
+        </td>
+        <td><span class="qty-badge">× 1</span></td>
+        <td><span class="price-tag" style="color:var(--green);">مجاني</span></td>
+        <td><a class="source-link" href="https://edgeimpulse.com" target="_blank">⬇️ edgeimpulse.com</a></td>
+        <td>—</td>
+      </tr>
+
+      <!-- TOTAL -->
+      <tr class="total-row">
+        <td colspan="3" style="text-align:left;font-weight:700;">💰 إجمالي تقديري للنموذج الأول</td>
+        <td colspan="3">
+          <span class="price-tag" style="color:var(--green);font-size:1.3rem;">~1,585 ر.س</span>
+          <span style="font-size:11px;color:var(--muted);display:block;margin-top:4px;">شامل المواد والأدوات — البرمجيات مجانية</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <!-- Cost breakdown bars -->
+  <div style="margin-top:32px;" class="reveal">
+    <div style="font-size:13px;font-weight:600;margin-bottom:16px;color:var(--muted2);">توزيع التكلفة</div>
+    <div class="cost-bar-wrap">
+      <div class="cost-item">
+        <span class="cost-label">إلكترونيات</span>
+        <div class="cost-bar-bg"><div class="cost-bar-fill" style="width:64%;background:var(--blue);"></div></div>
+        <span class="cost-amount" style="color:var(--blue);">~1,000 ر.س</span>
+      </div>
+      <div class="cost-item">
+        <span class="cost-label">ميكانيكي + طباعة 3D</span>
+        <div class="cost-bar-bg"><div class="cost-bar-fill" style="width:19%;background:var(--amber);"></div></div>
+        <span class="cost-amount" style="color:var(--amber);">~300 ر.س</span>
+      </div>
+      <div class="cost-item">
+        <span class="cost-label">أدوات تصنيع</span>
+        <div class="cost-bar-bg"><div class="cost-bar-fill" style="width:18%;background:var(--red);"></div></div>
+        <span class="cost-amount" style="color:var(--red);">~290 ر.س</span>
+      </div>
+      <div class="cost-item">
+        <span class="cost-label">برمجيات</span>
+        <div class="cost-bar-bg"><div class="cost-bar-fill" style="width:0%;background:var(--green);"></div></div>
+        <span class="cost-amount" style="color:var(--green);">مجانية</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="total-box reveal">
+    <div>
+      <div class="total-label">تكلفة النموذج الأول (Prototype)</div>
+      <div class="total-val">~1,585 ر.س</div>
+      <div class="total-note">التكلفة تنخفض 40٪ عند إنتاج 10+ وحدة</div>
+    </div>
+    <div style="text-align:left;">
+      <div class="total-label">سعر البيع المقترح</div>
+      <div class="total-val">4,500–8,000 ر.س</div>
+      <div class="total-note">حسب حجم الشاحنة والميزات</div>
+    </div>
+    <div style="text-align:left;">
+      <div class="total-label">هامش الربح</div>
+      <div class="total-val" style="color:var(--amber);">65–75%</div>
+      <div class="total-note">بعد الإنتاج بالجملة</div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="section section-alt" id="timeline">
+  <div class="sec-header reveal">
+    <span class="sec-num">03 —</span>
+    <div>
+      <div class="sec-title">خطة التنفيذ — 8 أسابيع</div>
+      <div class="sec-sub">من الصفر حتى المنتج الجاهز للسوق</div>
+    </div>
+  </div>
+
+  <div class="phases reveal">
+    <div class="phase-row">
+      <div class="phase-week">أ 1–2</div>
+      <div class="phase-line"><div class="phase-dot-outer done"></div></div>
+      <div class="phase-content">
+        <div class="phase-title">📐 التصميم والتخطيط</div>
+        <ul class="phase-items">
+          <li>رسم مخطط الدوائر الكاملة على KiCad — PCB 4 طبقات</li>
+          <li>تصميم هيكل الجهاز والحامل بـ Fusion 360 — PETG مقاوم للصدمات</li>
+          <li>تحديد مواضع خلايا الحمل الـ 6 داخل صندوق الشاحنة</li>
+          <li>طلب PCB من JLCPCB (وقت التسليم 7-10 أيام)</li>
+          <li>طلب المكونات من AliExpress وMakers Electronics</li>
+        </ul>
+      </div>
+    </div>
+    <div class="phase-row">
+      <div class="phase-week">أ 3</div>
+      <div class="phase-line"><div class="phase-dot-outer done"></div></div>
+      <div class="phase-content">
+        <div class="phase-title">🖨️ الطباعة ثلاثية الأبعاد والاستلام</div>
+        <ul class="phase-items">
+          <li>طباعة هيكل الجهاز والقاعدة المعدنية (PETG 230°C)</li>
+          <li>استلام PCB والتحقق من الجودة بصرياً ومجهرياً</li>
+          <li>تحضير منطقة العمل واللحام — تنظيف اللوحات بالكحول الإيزوبروبيل</li>
+          <li>فرز المكونات وترتيبها حسب ترتيب التلحيم</li>
+        </ul>
+      </div>
+    </div>
+    <div class="phase-row">
+      <div class="phase-week">أ 4</div>
+      <div class="phase-line"><div class="phase-dot-outer done"></div></div>
+      <div class="phase-content">
+        <div class="phase-title">🔧 التلحيم وتجميع الدوائر</div>
+        <ul class="phase-items">
+          <li>تلحيم مكونات SMD بالمجهر — ESP32-S3، مكثفات، مقاومات</li>
+          <li>تلحيم موصلات HX711 × 6 وتوصيل كابلات خلايا الحمل</li>
+          <li>توصيل MPU-6050، DS18B20، وحدة SD Card</li>
+          <li>اختبار الاستمرارية بالمقياس قبل تشغيل الطاقة</li>
+          <li>أول تشغيل — التحقق من الفولتاج على كل نقطة</li>
+        </ul>
+      </div>
+    </div>
+    <div class="phase-row">
+      <div class="phase-week">أ 5</div>
+      <div class="phase-line"><div class="phase-dot-outer"></div></div>
+      <div class="phase-content">
+        <div class="phase-title">💻 البرمجة وتدريب النموذج</div>
+        <ul class="phase-items">
+          <li>برمجة ESP32-S3 بـ Arduino/ESP-IDF: قراءة HX711 وعرض البيانات</li>
+          <li>برمجة خوارزمية معايرة خلايا الحمل (Tare + Calibration)</li>
+          <li>تطوير واجهة الشاشة TFT — خريطة لونية للوزن (أحمر/أصفر/أخضر)</li>
+          <li>جمع بيانات تحميل حقيقية من 50+ سيناريو لتدريب النموذج</li>
+          <li>تدريب نموذج TFLite على Edge Impulse ونشره على الجهاز</li>
+        </ul>
+      </div>
+    </div>
+    <div class="phase-row">
+      <div class="phase-week">أ 6</div>
+      <div class="phase-line"><div class="phase-dot-outer"></div></div>
+      <div class="phase-content">
+        <div class="phase-title">⚖️ المعايرة والاختبار المعملي</div>
+        <ul class="phase-items">
+          <li>معايرة خلايا الحمل بأوزان مرجعية (50kg, 100kg, 150kg, 200kg)</li>
+          <li>اختبار دقة القياس ± 50kg عبر 100 قراءة متكررة</li>
+          <li>محاكاة سيناريوهات تحميل مختلفة واختبار توصيات AI</li>
+          <li>اختبار الاتصال WiFi + APEC مع لوحة التحكم الويب</li>
+          <li>مراجعة واجهة المستخدم مع عمال تحميل حقيقيين</li>
+        </ul>
+      </div>
+    </div>
+    <div class="phase-row">
+      <div class="phase-week">أ 7</div>
+      <div class="phase-line"><div class="phase-dot-outer"></div></div>
+      <div class="phase-content">
+        <div class="phase-title">🚛 الاختبار الميداني على شاحنة حقيقية</div>
+        <ul class="phase-items">
+          <li>تثبيت الجهاز في شاحنة حقيقية — اختبار بيئي كامل</li>
+          <li>قياس دقة الوزن تحت ظروف الاهتزاز والطريق</li>
+          <li>تسجيل 50+ رحلة وتحليل البيانات لتحسين النموذج</li>
+          <li>اختبار متانة الهيكل 3D والكابلات تحت درجات حرارة عالية</li>
+          <li>تعديلات نهائية بناءً على ملاحظات المشغلين</li>
+        </ul>
+      </div>
+    </div>
+    <div class="phase-row">
+      <div class="phase-week">أ 8</div>
+      <div class="phase-line"><div class="phase-dot-outer"></div></div>
+      <div class="phase-content">
+        <div class="phase-title">🚀 التحضير للسوق والطرح</div>
+        <ul class="phase-items">
+          <li>تصوير المنتج وإعداد عروض تقديمية للشركات</li>
+          <li>تسعير النموذج الأول وخطة تسعير الإنتاج</li>
+          <li>تقديم للشركات الكبرى: Aramex, NUPCO, SABIC logistics</li>
+          <li>إعداد عقود صيانة وضمان</li>
+          <li>تقديم على برامج دعم: Badir, Monshaat, KACST</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RISKS -->
+<section class="section" id="risks">
+  <div class="sec-header reveal">
+    <span class="sec-num">04 —</span>
+    <div>
+      <div class="sec-title">إدارة المخاطر</div>
+      <div class="sec-sub">المخاطر المحتملة وخطط التخفيف</div>
+    </div>
+  </div>
+  <div class="risk-grid reveal">
+    <div class="risk-row">
+      <div>
+        <div class="risk-name">تأخر شحن المكونات من الصين</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">AliExpress قد يتأخر 20–30 يوم</div>
+      </div>
+      <div><span class="risk-level lvl-high">عالي</span></div>
+      <div><span class="risk-level lvl-med">احتمال وسط</span></div>
+      <div class="risk-mitigation">طلب المكونات في الأسبوع الأول مباشرة. شراء بديل من Makers Electronics محلياً فور وصول أي تأخير.</div>
+    </div>
+    <div class="risk-row">
+      <div>
+        <div class="risk-name">عدم دقة خلايا الحمل تحت الاهتزاز</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">الشاحنة تهتز أثناء الحركة</div>
+      </div>
+      <div><span class="risk-level lvl-med">متوسط</span></div>
+      <div><span class="risk-level lvl-med">وسط</span></div>
+      <div class="risk-mitigation">تطبيق خوارزمية Moving Average + Kalman Filter لتنقية الإشارة. القياس فقط حين تكون الشاحنة متوقفة.</div>
+    </div>
+    <div class="risk-row">
+      <div>
+        <div class="risk-name">صعوبة تثبيت الجهاز في أنواع شاحنات مختلفة</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">أبعاد الصناديق تتفاوت</div>
+      </div>
+      <div><span class="risk-level lvl-med">متوسط</span></div>
+      <div><span class="risk-level lvl-low">منخفض</span></div>
+      <div class="risk-mitigation">تصميم قاعدة ألمنيوم قابلة للتعديل. توفير 3 أحجام من الهيكل 3D. توثيق دليل تركيب لكل نوع.</div>
+    </div>
+    <div class="risk-row">
+      <div>
+        <div class="risk-name">مقاومة شركات الشاحنات لتغيير أسلوب العمل</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">التغيير صعب في بيئة العمل</div>
+      </div>
+      <div><span class="risk-level lvl-low">منخفض</span></div>
+      <div><span class="risk-level lvl-high">مرتفع</span></div>
+      <div class="risk-mitigation">تقديم نسخة تجريبية مجانية 30 يوم مع تقرير توفير الوقود والمال. الأرقام تتكلم بدلاً من الإقناع.</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section class="section section-alt" id="market">
+  <div class="sec-header reveal">
+    <span class="sec-num">05 —</span>
+    <div>
+      <div class="sec-title">تحليل السوق والعائد</div>
+      <div class="sec-sub">الجهة المستهدفة وحجم الفرصة</div>
+    </div>
+  </div>
+  <div class="market-grid reveal">
+    <div class="market-card">
+      <div class="market-icon">🏭</div>
+      <div class="market-name">شركات اللوجستيات الكبرى</div>
+      <div class="market-desc">Aramex، SMSA، DHL، شركات نقل SABIC — أساطيل 100+ شاحنة، تدفع مقابل توفير الوقود.</div>
+      <div class="market-val">8,000+ ر.س / وحدة</div>
+    </div>
+    <div class="market-card">
+      <div class="market-icon">🚑</div>
+      <div class="market-name">شركات نقل الأدوية والغذاء</div>
+      <div class="market-desc">NUPCO، شركات التوزيع — متطلبات صارمة للحمولة والامتثال.</div>
+      <div class="market-val">6,000–10,000 ر.س</div>
+    </div>
+    <div class="market-card">
+      <div class="market-icon">🏗️</div>
+      <div class="market-name">شركات المقاولات والبناء</div>
+      <div class="market-desc">مشاريع نيوم، NEOM، Red Sea — عشرات الآلاف من الشاحنات في موقع واحد.</div>
+      <div class="market-val">4,500–6,000 ر.س</div>
+    </div>
+    <div class="market-card">
+      <div class="market-icon">🌾</div>
+      <div class="market-name">شركات نقل الحبوب والمواد الزراعية</div>
+      <div class="market-desc">وزارة البيئة والزراعة، شركات الأغذية — حساسة لدقة الوزن والامتثال للوائح.</div>
+      <div class="market-val">4,000–5,000 ر.س</div>
+    </div>
+  </div>
+
+  <!-- ROI calculation -->
+  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:28px;margin-top:16px;" class="reveal">
+    <div style="font-size:14px;font-weight:700;margin-bottom:20px;">حاسبة العائد على الاستثمار للعميل</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;flex-wrap:wrap;">
+      <div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:6px;">توفير وقود شاحنة واحدة / شهر</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:1.4rem;font-weight:700;color:var(--green);">~800 ر.س</div>
+        <div style="font-size:11px;color:var(--muted);">بناءً على 23% توفير × 3,500 ر.س وقود</div>
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:6px;">توفير تآكل إطارات / شهر</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:1.4rem;font-weight:700;color:var(--green);">~350 ر.س</div>
+        <div style="font-size:11px;color:var(--muted);">31% تقليل تآكل × عمر إطار 1,100 ر.س</div>
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:6px;">فترة استرداد التكلفة</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:1.4rem;font-weight:700;color:var(--amber);">4–5 أشهر</div>
+        <div style="font-size:11px;color:var(--muted);">عند سعر بيع 6,000 ر.س</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUPPORT PROGRAMS -->
+<section class="section">
+  <div class="sec-header reveal">
+    <span class="sec-num">06 —</span>
+    <div>
+      <div class="sec-title">برامج الدعم والتمويل</div>
+      <div class="sec-sub">جهات سعودية تدعم مشاريع التصنيع الرقمي</div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;" class="reveal">
+    <div class="card" style="border-color:rgba(34,197,94,.2);">
+      <div style="font-size:20px;margin-bottom:10px;">🏛️</div>
+      <div style="font-weight:700;margin-bottom:6px;">برنامج بادر</div>
+      <div style="font-size:12px;color:var(--muted2);">تمويل حتى 500,000 ر.س للشركات الناشئة التقنية. يدعم مشاريع التصنيع الذكي.</div>
+      <a href="https://badir.com.sa" target="_blank" style="display:inline-block;margin-top:12px;font-size:11px;color:var(--green);">badir.com.sa ↗</a>
+    </div>
+    <div class="card" style="border-color:rgba(59,130,246,.2);">
+      <div style="font-size:20px;margin-bottom:10px;">🌱</div>
+      <div style="font-weight:700;margin-bottom:6px;">منشآت</div>
+      <div style="font-size:12px;color:var(--muted2);">برامج تسريع ودعم رواد الأعمال — تمويل أولي ومساحات عمل مجهزة.</div>
+      <a href="https://monshaat.gov.sa" target="_blank" style="display:inline-block;margin-top:12px;font-size:11px;color:var(--blue);">monshaat.gov.sa ↗</a>
+    </div>
+    <div class="card" style="border-color:rgba(245,158,11,.2);">
+      <div style="font-size:20px;margin-bottom:10px;">🔬</div>
+      <div style="font-weight:700;margin-bottom:6px;">KACST — مدينة الملك عبدالعزيز</div>
+      <div style="font-size:12px;color:var(--muted2);">منح بحثية ومختبرات مجهزة لتطوير الأجهزة الإلكترونية الذكية.</div>
+      <a href="https://kacst.edu.sa" target="_blank" style="display:inline-block;margin-top:12px;font-size:11px;color:var(--amber);">kacst.edu.sa ↗</a>
+    </div>
+    <div class="card" style="border-color:rgba(239,68,68,.2);">
+      <div style="font-size:20px;margin-bottom:10px;">🏭</div>
+      <div style="font-weight:700;margin-bottom:6px;">صندوق التنمية الصناعية</div>
+      <div style="font-size:12px;color:var(--muted2);">قروض ميسرة لمشاريع التصنيع — يدعم رؤية 2030 في التحول للصناعة المحلية.</div>
+      <a href="https://sidf.gov.sa" target="_blank" style="display:inline-block;margin-top:12px;font-size:11px;color:var(--red);">sidf.gov.sa ↗</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px;">جهاز توزيع الحمولة الذكي</div>
+  <div>خطة تنفيذ كاملة — 8 أسابيع من الفكرة إلى السوق</div>
+  <div style="margin-top:16px;font-size:11px;">تكلفة النموذج الأول ~1,585 ر.س · سعر البيع 4,500–8,000 ر.س · هامش ربح 65–75%</div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); }), {threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
